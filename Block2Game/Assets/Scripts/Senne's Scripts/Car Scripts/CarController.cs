@@ -42,6 +42,12 @@ public class CarController : MonoBehaviour
     [SerializeField]
     [Tooltip("Select the layer that the ground enviroment has ramps included")]
     private LayerMask Ground;
+
+
+    private float currentVelocity;
+    public float Gforce;
+    private float lastFrameVelocity;
+
     private void Start()
     {
         //Detaches the sphere from the car
@@ -51,21 +57,27 @@ public class CarController : MonoBehaviour
     {
         //Pivot point from the car empty needs to be at the same location as the pivot point from the sphere
         //Set the positon of the car empty to the sphere
-        transform.position = sphereRB.transform.position;
+        //transform.position = sphereRB.transform.position;
         
-        Slopes();
+        //Slopes();
     }
     private void FixedUpdate()
     {
         //Turning();
        // CarInput();
-        MotorForce();
         //Falling();
     }
 
-    private void CarInput()
+    public void CarFixedUpdate()
+    {
+        MotorForce();
+        GForce();
+    }
+    public void CarUpdate()
     {
         
+        Slopes();
+        transform.position = sphereRB.transform.position;
     }
     
     private void MotorForce()
@@ -136,9 +148,13 @@ public class CarController : MonoBehaviour
         //Get raycasts for all wheels to take the normal and slerp the rotation 
         //Look at unity forum
     }
-    private void Falling()
+
+    private void GForce()
     {
-        
+        currentVelocity = sphereRB.velocity.magnitude;
+        Gforce = (currentVelocity - lastFrameVelocity) / (Time.deltaTime * Physics.gravity.magnitude);
+        lastFrameVelocity = currentVelocity;
     }
+
 
 }
