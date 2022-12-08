@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField]
     private float lerpTime = 3.5f;
-    [SerializeField, Range(2f, 10f)]
+    [SerializeField, Range(2f, 100f)]
     private float forwardDistance = 3f;
     [SerializeField]
     private float distance = 2f;
@@ -58,10 +58,12 @@ public class CameraController : MonoBehaviour
         accelerationEffect = Mathf.Lerp(accelerationEffect, carController.Gforce * 3.5f, 2 * Time.deltaTime);
         //Changes the position of the CameraController object to the focus point object with a lerp
         transform.position = Vector3.Lerp(transform.position, focusPoint.transform.position, lerpTime * Time.deltaTime);
+            //Lerp percentage wise instead of time based 
+
         //Gets the distance between current position and newPos then raises it to the power of forward distance which is 3
         distance = Mathf.Pow(Vector3.Distance(transform.position, newPos), forwardDistance);
         //Gets a point between current location and new with a max value of the distance var
-        transform.position = Vector3.MoveTowards(transform.position, newPos, distance * Time.deltaTime);
+        //transform.position = Vector3.MoveTowards(transform.position, newPos, distance * Time.deltaTime);
         //Rotates the main camera object
         transform.GetChild(0).transform.localRotation = Quaternion.Lerp(transform.GetChild(0).transform.localRotation, Quaternion.Euler(-accelerationEffect, 0, 0), 5 * Time.deltaTime);
         //Rotates the camera controller object to the car object

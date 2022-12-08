@@ -23,10 +23,11 @@ public class GameManager : MonoBehaviour
     {
       
         carController.CarFixedUpdate();
-        
+
     }
     private void LateUpdate()
     {
         cameraController.CamFollow();
+
     }
 }
