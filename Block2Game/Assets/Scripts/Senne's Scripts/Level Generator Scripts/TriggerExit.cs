@@ -12,13 +12,14 @@ public class TriggerExit : MonoBehaviour
     public static event ExitAction OnChunkExited;
 
     private bool exited = false;
+    private GameObject player;
 
     //When a collider leaves the trigger
     private void OnTriggerExit(Collider other)
     {
         //Cartag is an empty script attached to the car 
-        CarTag carTag = other.GetComponent<CarTag>();
-        if (carTag != null)
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
         {
             if(!exited)
             {
