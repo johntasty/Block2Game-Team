@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    CameraController cameraController;
-    CarController carController;
+    //CameraController cameraController;
+    //CarController carController;
     // Start is called before the first frame update
     void Start()
     {
-        cameraController = GameObject.Find("CameraController").GetComponent<CameraController>();
-        carController = GameObject.Find("Car").GetComponent <CarController>();
+        //cameraController = GameObject.Find("CameraController").GetComponent<CameraController>();
+        //carController = GameObject.Find("Car").GetComponent <CarController>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        carController.CarUpdate();
+        //carController.CarUpdate();
     }
     private void FixedUpdate()
     {
-      
-        carController.CarFixedUpdate();
+        
+        //carController.CarFixedUpdate(); 
 
     }
     private void LateUpdate()
     {
-        cameraController.CamFollow();
+        //cameraController.CamFollow();
 
     }
 }

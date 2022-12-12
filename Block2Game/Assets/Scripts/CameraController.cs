@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
 
     private GameObject player;
     private int locationIndicator = 1;
-    private CarController carController;
+    private CarControllerV2 carControllerV2;
 
     private Vector3 newPos;
     private Transform target;
@@ -25,18 +25,23 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         cameraPos = new Vector2[4];
-        cameraPos[0] = new Vector2 (2,0);
-        cameraPos[1] = new Vector2 (7.5f, 0.5f);
-        cameraPos[2] = new Vector2(8.9f, 1.2f);
+        cameraPos[0] = new Vector2 (4,0);
+        cameraPos[1] = new Vector2 (9.5f, 0.5f);
+        cameraPos[2] = new Vector2(10.9f, 1.2f);
 
         player = GameObject.FindGameObjectWithTag("Player");
-        focusPoint = player.transform.Find("focus").gameObject;
+        focusPoint = player.transform.Find("Focus").gameObject;
 
         target = focusPoint.transform;
-        carController = player.GetComponent<CarController>();
+        carControllerV2 = player.GetComponent<CarControllerV2>();
 
     }
 
+    private void FixedUpdate()
+    {
+        CamFollow();
+        
+    }
     private void CycleCamera()
     {
         if (locationIndicator >= cameraPos.Length || locationIndicator < 0)
@@ -55,7 +60,7 @@ public class CameraController : MonoBehaviour
         //Inidicates the position of the camera and sets the offset based of the hardcoded list
         newPos = target.position - (target.forward * cameraPos[locationIndicator].x) + (target.up * cameraPos[locationIndicator].y);
         //Creates the value for the effect lerped 
-        accelerationEffect = Mathf.Lerp(accelerationEffect, carController.Gforce * 3.5f, 2 * Time.deltaTime);
+        //accelerationEffect = Mathf.Lerp(accelerationEffect, carControllerV2.gForce * 3.5f, 2 * Time.deltaTime);
         //Changes the position of the CameraController object to the focus point object with a lerp
         transform.position = Vector3.Lerp(transform.position, focusPoint.transform.position, lerpTime * Time.deltaTime);
             //Lerp percentage wise instead of time based 
@@ -63,7 +68,7 @@ public class CameraController : MonoBehaviour
         //Gets the distance between current position and newPos then raises it to the power of forward distance which is 3
         distance = Mathf.Pow(Vector3.Distance(transform.position, newPos), forwardDistance);
         //Gets a point between current location and new with a max value of the distance var
-        //transform.position = Vector3.MoveTowards(transform.position, newPos, distance * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, newPos, distance * Time.deltaTime);
         //Rotates the main camera object
         transform.GetChild(0).transform.localRotation = Quaternion.Lerp(transform.GetChild(0).transform.localRotation, Quaternion.Euler(-accelerationEffect, 0, 0), 5 * Time.deltaTime);
         //Rotates the camera controller object to the car object
