@@ -8,9 +8,11 @@ public class EnemyBehaciour : MonoBehaviour
     public float moveSpeed = 5f;
     private Rigidbody rb;
     private Vector3 movement;
+    public float dashPower = 25f;
     // Start is called before the first frame update
     void Start()
     {
+        //grab the rigidbody
         rb = this.GetComponent<Rigidbody>();
     }
 
@@ -31,5 +33,14 @@ public class EnemyBehaciour : MonoBehaviour
     void moveCharacter(Vector3 direction)
     {
         rb.MovePosition((Vector3)transform.position + (direction * moveSpeed * Time.deltaTime));
+    }
+
+    //trigger enemy to drive at opponent quickly when the two are in close proximity
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            rb.AddForce(player.position * dashPower);
+        }
     }
 }
