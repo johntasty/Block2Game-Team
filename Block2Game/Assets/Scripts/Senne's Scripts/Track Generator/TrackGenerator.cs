@@ -16,6 +16,10 @@ public class TrackGenerator : MonoBehaviour
 
     [SerializeField]
     private float difficulty;
+    [SerializeField]
+    private float pushIterations = 3;
+
+    private Vector3 vector3 = Vector3.zero;
 
     public bool drawIt;
 
@@ -29,10 +33,10 @@ public class TrackGenerator : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             dataSet = cv.outter.ToArray();
-            PushApart(dataSet);
+            //PushApart(dataSet);
         }
 
-        if (Input.GetKey(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             TrackDisplacement();
         }
@@ -54,23 +58,30 @@ public class TrackGenerator : MonoBehaviour
             disp.Set(0, 0, 1);
 
             //Rotation
-            disp = disp * (Random.Range(0.0f, 1.0f) * 360);
+            //disp = disp * (Random.Range(0.0f, 1.0f) * 360);
 
             //Multiplies the displacement 
             disp = disp * dispLen;
 
-            //Creates a new point after every existing point with a value of zero
-            rSet[i] = dataSet[i];
-            //Creates a new point before every existing point 
+            //Creates a new point before every existing point with a value of zero
+            rSet[i * 2] = dataSet[i];
+            //Creates a new point after every existing point 
             rSet[i * 2 + 1] = new Vector3(dataSet[i].x, dataSet[i].y, dataSet[i].z);
 
-            rSet[i * 2 + 1] = rSet[i * 2 + 1] + dataSet[(i+1) % dataSet.Length] / 2 + disp;
-          
+            rSet[i * 2 + 1] = rSet[i * 2 + 1] + (dataSet[(i+1) % dataSet.Length]) / 2 + disp;
+            
+            
         }
+       
+
 
         dataSet = rSet;
+        //Push apart
+        for (int i = 0; i < pushIterations; i++)
+            //FixAngles();
+            PushApart(dataSet);
 
-        
+
     }
 
     //Need to push points that are too close to eachother apart to prevent loops
@@ -89,35 +100,74 @@ public class TrackGenerator : MonoBehaviour
             //which is why it starts at  i + 1
             for (int j = i +1; j < dataSet.Length; j++)
             {
-              var  p_dst = Mathf.Sqrt(Mathf.Pow(dataSet[i][0] - dataSet[j][0], 2) + Mathf.Pow(dataSet[i][1] - dataSet[j][1], 2));
+              var  p_dst = Mathf.Sqrt(Mathf.Pow(dataSet[i].x - dataSet[j].x, 2) + Mathf.Pow(dataSet[i].z - dataSet[j].z, 2));
               if (p_dst < dst)
                 {
                     //Finds the distance between the y and x of 2 points
-                    float dx = dataSet[j][0] - dataSet[i][0];
-                    float dy = dataSet[j][1] - dataSet[i][1];
+                    float dx = dataSet[j].x - dataSet[i].x;
+                    float dz = dataSet[j].z - dataSet[i].z;
 
                     //Calculation of arc length based on the Pythagorean Theorem
-                    float dl = Mathf.Sqrt(dx *dx + dy * dy);
+                    float dl = Mathf.Sqrt(dx *dx + dz * dz);
 
                     //not sure what is happening here
                     dx /= dl;
-                    dy /= dl;
+                    dz /= dl;
 
                     float dif = dst - dl;
 
                     dx *= dif;
-                    dy *= dif;
-                    //Pushing the points apart?
-                    dataSet[j][0] = System.Convert.ToInt32(dataSet[j][0] + dx);
-                    dataSet[j][1] = System.Convert.ToInt32(dataSet[j][1] + dy);
-                    dataSet[i][0] = System.Convert.ToInt32(dataSet[i][0] - dx);
-                    dataSet[i][1] = System.Convert.ToInt32(dataSet[i][1] - dy);
+                    dz *= dif;
+                    //Pushing the points apart
+                    dataSet[j].x += dx;
+                    dataSet[j].z += dz;
+                    dataSet[i].x -= dx;
+                    dataSet[i].z -= dz;
                 }
               
-
             }
         }
-        return;
+    }
+
+    private void FixAngles()
+    {
+        for (int i = 0; i < dataSet.Length; i++)
+        {
+            int previous = (i - 1) < 0 ? dataSet.Length -1 : i -1;
+            int next = (i + 1) % dataSet.Length;
+
+            float px = dataSet[i].x - dataSet[previous].x;
+            float pz = dataSet[i].z - dataSet[previous].z;
+            float pl = Mathf.Sqrt(px*px + pz*pz);
+            px /= pl;
+            pz /= pl;
+
+            float nx = dataSet[i].x - dataSet[next].x;
+            float nz = dataSet[i].z - dataSet[next].z;
+            nx = -nx;
+            nz = -nz;
+            float nl = Mathf.Sqrt(nx*nx - nz*nz);
+            nx /= nl;
+            nz /= nl;
+
+            //Perp dot between the previous and next point
+            float a = Mathf.Atan2(px * nz - pz * nz, px * nx + pz * nz);
+
+            if (Mathf.Abs(a * Mathf.Rad2Deg) <= 100)
+                continue;
+
+            float nA = 100 * Mathf.Sign(a) * Mathf.Deg2Rad;
+            float diff = nA - a;
+            float cos = Mathf.Cos(diff);
+            float sin = Mathf.Sin(diff);
+            float newX = nx * cos - nz * sin;
+            float newZ = nz * sin + nz * cos;
+            newX *= nl;
+            newZ *= nl;
+
+            dataSet[next].x = dataSet[i].x + newX;
+            dataSet[next].z = dataSet[i].z + newZ;
+        }
     }
 
     private void OnDrawGizmos()
@@ -126,12 +176,18 @@ public class TrackGenerator : MonoBehaviour
         //We need a list to iterate over the values so we grab the values from the HashSet and putting them in the outter list
         if (drawIt)
         {
-           
+            for (int i = 0; i < dataSet.Length - 1; i++)
+            {
+                Gizmos.DrawLine(dataSet[i], dataSet[i + 1]);
+            }
+            //Then we draw those outter points 
+            Gizmos.DrawLine(dataSet[0], dataSet[dataSet.Length - 1]);
+
             for (int i = 0; i < dataSet.Length; i++)
             {
                 Gizmos.color = Color.green;
 
-                Gizmos.DrawSphere(dataSet[i], 1.5f);
+                Gizmos.DrawSphere(dataSet[i], 5f);
             }
         }
 

@@ -1662,9 +1662,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c187fc03bff4392498fe302b3d531a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxPointsGenerated: 25
   points: []
   size: 1.5
   drawIt: 1
+  outter: []
 --- !u!114 &1046280151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1678,6 +1680,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialPointRange: 25
+  dataSet: []
+  rSet: []
+  difficulty: 0.2
+  pushIterations: 3
+  drawIt: 0
 --- !u!4 &1046280152
 Transform:
   m_ObjectHideFlags: 0
