@@ -12,6 +12,9 @@ public class CarController : MonoBehaviour
     [Header("Acceleration")]
     [SerializeField]
     [Tooltip("Amount of forward accelarion (~200 is nice)")]
+    private float topSpeed;
+    [SerializeField]
+    private float acceleration;
     private float forwardSpeed;
     [SerializeField]
     [Tooltip("Amount of backwards accelarion (best to halve the forwardspeed)")]
@@ -23,9 +26,12 @@ public class CarController : MonoBehaviour
     [SerializeField]
     [Tooltip("Turning speed while airborn")]
     private float turnSpeedAir;
-
+    
     private float turnSpeed;
     private float turnInput;
+
+    [SerializeField]
+    private float slerpRot = 1f;
 
     [Header("Drag")]
     [SerializeField]
@@ -43,10 +49,13 @@ public class CarController : MonoBehaviour
     [Tooltip("Select the layer that the ground enviroment has ramps included")]
     private LayerMask Ground;
 
-
+    [SerializeField]
     private float currentVelocity;
-    public float Gforce;
+    public float gForce;
     private float lastFrameVelocity;
+
+
+    
 
     private void Start()
     {
@@ -58,26 +67,29 @@ public class CarController : MonoBehaviour
         //Pivot point from the car empty needs to be at the same location as the pivot point from the sphere
         //Set the positon of the car empty to the sphere
         //transform.position = sphereRB.transform.position;
-        
+
         //Slopes();
+
+        CarUpdate();
     }
     private void FixedUpdate()
     {
-        //Turning();
-       // CarInput();
-        //Falling();
+       CarFixedUpdate();
     }
+
+  
 
     public void CarFixedUpdate()
     {
         MotorForce();
         GForce();
+        transform.position = sphereRB.transform.position;
     }
     public void CarUpdate()
     {
         
         Slopes();
-        transform.position = sphereRB.transform.position;
+        
     }
     
     private void MotorForce()
@@ -88,6 +100,9 @@ public class CarController : MonoBehaviour
         turnInput = Input.GetAxisRaw("Horizontal");
 
         //when the input value is higher then 1 it applies forward speed otherwise reverse speed
+
+        forwardSpeed = Mathf.Lerp(currentVelocity, topSpeed, acceleration);
+
         moveInput *= moveInput > 0 ? forwardSpeed : reverseSpeed;
 
         //Get braking over time 
@@ -105,8 +120,10 @@ public class CarController : MonoBehaviour
         //the player from turning while standing still, also gives inverse rotation while reversing 
         float newRotation = turnInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
         //Applies the rotation value to the empty car game object 
+        
         transform.Rotate(0, newRotation, 0, Space.World);
-
+        //transform.rotation = Quaternion.Slerp(transform.rotation, )
+       
 
         //Use the sphere for turning and let the car follow the sphere
         //Slerping
@@ -152,7 +169,7 @@ public class CarController : MonoBehaviour
     private void GForce()
     {
         currentVelocity = sphereRB.velocity.magnitude;
-        Gforce = (currentVelocity - lastFrameVelocity) / (Time.deltaTime * Physics.gravity.magnitude);
+        gForce = (currentVelocity - lastFrameVelocity) / (Time.deltaTime * Physics.gravity.magnitude);
         lastFrameVelocity = currentVelocity;
     }
 

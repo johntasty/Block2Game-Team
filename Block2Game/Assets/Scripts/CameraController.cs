@@ -6,12 +6,13 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField]
     private float lerpTime = 3.5f;
-    [SerializeField, Range(2f, 100f)]
+    [SerializeField, Range(1f, 4f)]
     private float forwardDistance = 3f;
     [SerializeField]
     private float distance = 2f;
 
     private GameObject player;
+    [SerializeField]
     private int locationIndicator = 1;
     private CarControllerV2 carControllerV2;
 
@@ -24,10 +25,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        cameraPos = new Vector2[4];
-        cameraPos[0] = new Vector2 (4,0);
-        cameraPos[1] = new Vector2 (9.5f, 0.5f);
-        cameraPos[2] = new Vector2(10.9f, 1.2f);
+        
 
         player = GameObject.FindGameObjectWithTag("Player");
         focusPoint = player.transform.Find("Focus").gameObject;
@@ -44,7 +42,7 @@ public class CameraController : MonoBehaviour
     }
     private void CycleCamera()
     {
-        if (locationIndicator >= cameraPos.Length || locationIndicator < 0)
+        if (locationIndicator >= cameraPos.Length -1 || locationIndicator < 0)
             locationIndicator = 0;
         else
             locationIndicator++;
