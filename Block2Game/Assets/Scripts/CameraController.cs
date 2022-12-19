@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private int locationIndicator = 1;
-    private CarControllerV2 carControllerV2;
+    private CarControllerV3 carControllerV2;
 
     private Vector3 newPos;
     private Transform target;
@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
         focusPoint = player.transform.Find("Focus").gameObject;
 
         target = focusPoint.transform;
-        carControllerV2 = player.GetComponent<CarControllerV2>();
+        carControllerV2 = player.GetComponent<CarControllerV3>();
 
     }
 

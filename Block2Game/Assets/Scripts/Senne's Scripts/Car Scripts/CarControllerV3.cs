@@ -24,7 +24,10 @@ public class CarControllerV3 : MonoBehaviour
     public TMP_Text SlipText3;
 
     private float verticalInput;
+
     private float horizontalInput;
+    private SteeringUiRotation pedalsHolder;
+    [SerializeField] Joystick touchController;
     private bool handbrake;
     private bool brake;
 
@@ -95,6 +98,7 @@ public class CarControllerV3 : MonoBehaviour
 
     private void Start()
     {
+        pedalsHolder = FindObjectOfType<SteeringUiRotation>();
         rb = GetComponent<Rigidbody>();
         centerMass = GameObject.Find("Mass");
         rb.centerOfMass = centerMass.transform.localPosition;
@@ -129,8 +133,9 @@ public class CarControllerV3 : MonoBehaviour
 
     private void CarInput()
     {
-        verticalInput = Input.GetAxisRaw("Vertical");
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = pedalsHolder.PedalPushedPerecnt; ;
+        horizontalInput = touchController.Horizontal;
+        brake = pedalsHolder.BreakPedalPushed;
         if (Input.GetKey(KeyCode.LeftShift))
         {
             handbrake = true;
@@ -139,14 +144,14 @@ public class CarControllerV3 : MonoBehaviour
         {
             handbrake = false;
         }
-        if (Input.GetKey(KeyCode.Space))
-        {
-            brake = true;
-        }
-        else
-        {
-            brake= false;
-        }
+        //if (Input.GetKey(KeyCode.Space))
+        //{
+        //    brake = true;
+        //}
+        //else
+        //{
+        //    brake= false;
+        //}
     }
 
     private void MoveCar()
@@ -178,10 +183,12 @@ public class CarControllerV3 : MonoBehaviour
         }
 
         KPH = rb.velocity.magnitude * 3.6f;
+        for (int i = 0; i < wheels.Length; i++)
+                wheels[i].brakeTorque = brakePower;
         if (brake)
         {
             for (int i = 0; i < wheels.Length; i++)
-                wheels[i].brakeTorque = brakePower;
+                wheels[i].brakeTorque = brakePower * verticalInput;
         }
         else
         {
