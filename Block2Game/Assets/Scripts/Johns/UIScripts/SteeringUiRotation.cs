@@ -57,6 +57,19 @@ public class SteeringUiRotation : MonoBehaviour
     void Update()
     {
         RotationWheel();
+        GasTesting();
+    }
+    public void GasTesting()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            percentPushed += 0.1f;
+            percentPushed = Mathf.Clamp(percentPushed, 0, 1);
+        }
+        else { 
+            percentPushed -= 0.1f;
+            percentPushed = Mathf.Clamp(percentPushed, 0, 1);
+        }
     }
     private void RotationWheel()
     {
@@ -116,5 +129,10 @@ public class SteeringUiRotation : MonoBehaviour
     public void BreakPedal()
     {
         breakPedal = !breakPedal;
+    }
+    public void ExitGame()
+    {
+        Debug.Log("exit");
+        Application.Quit();
     }
 }

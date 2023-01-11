@@ -96,13 +96,14 @@ public class CarControllerV3 : MonoBehaviour
     [SerializeField]
     float driftSmoothFactor = .7f;
 
+    private Respawn respawingFunc;
     private void Start()
     {
         pedalsHolder = FindObjectOfType<SteeringUiRotation>();
         rb = GetComponent<Rigidbody>();
         centerMass = GameObject.Find("Mass");
         rb.centerOfMass = centerMass.transform.localPosition;
-
+        respawingFunc = transform.GetComponent<Respawn>();
         //KPHText = GetComponent<TextMeshProUGUI>();
         //SlipText = GetComponent<TextMeshProUGUI>();
     }
@@ -110,7 +111,7 @@ public class CarControllerV3 : MonoBehaviour
     {
         CarInput();
         CalEnginePower();
-
+        respawingFunc.RespawnFunction();
         wheelRPMText.text = "wheel RPM " + wheelsRPM.ToString();
         KPHText.text = "KPH: " + KPH.ToString();
         SlipText0.text = "Slip 1: " + slip[0].ToString();
