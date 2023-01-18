@@ -6,22 +6,27 @@ using TMPro;
 
 public class LapTimer : MonoBehaviour
 {
-    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI timeTxt;
+    public string timeString;
     private float startTime;
+    public float rawTime;
 
     bool started = false;
-    bool finished = false;
+    public bool finished = false;
 
     public GameObject startLine;
     public GameObject finishLine;
     public GameObject checkPoint;
-
+    [SerializeField] GameHandler gameHandler;
+    
     
     private void Start()
     {
+        //Finds all the objects based on the tag
         startLine = GameObject.FindGameObjectWithTag("startLine");
         finishLine = GameObject.FindGameObjectWithTag("finishLine");
         checkPoint = GameObject.FindGameObjectWithTag("checkPoint");
+        //Finish line needs to be active to be found so I turn it off after its found
         finishLine.SetActive(false);
     }
     private void OnTriggerEnter(Collider other)
@@ -39,9 +44,7 @@ public class LapTimer : MonoBehaviour
         if (other.gameObject.tag == "finishLine")
         {
             finished = true;
-            
-            //stop race
-            //save time
+            gameHandler.StopGame();
         }
         
     }
@@ -55,10 +58,14 @@ public class LapTimer : MonoBehaviour
     {
         if (finished)
             return;
+
+        rawTime = Time.time - startTime;
+        //Converts the time from an numer to actual minutes and seconds
+        string minutes = ((int)rawTime / 60).ToString();
+        string seconds = (rawTime % 60).ToString("f2");
+        //need to save this text 
+        timeTxt.text = minutes + ":" + seconds;
+        timeString = timeTxt.ToString();
         
-        float t = Time.time - startTime;
-        string minutes = ((int)t / 60).ToString();
-        string seconds = (t % 60).ToString("f2");
-        timerText.text = minutes + ":" + seconds;
     }
 }
