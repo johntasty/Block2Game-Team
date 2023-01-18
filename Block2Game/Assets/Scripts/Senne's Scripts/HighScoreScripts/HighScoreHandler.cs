@@ -6,6 +6,7 @@ public class HighScoreHandler : MonoBehaviour
 {
     List<HighScoreElement> highScoresList = new List<HighScoreElement>();
     [SerializeField] int maxCount = 6;
+    [Tooltip("Don't forget to add .json at the end of the filename")]
     [SerializeField] string filename;
 
     public delegate void OnHighScoreListChanged(List<HighScoreElement> list);
