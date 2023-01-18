@@ -99,19 +99,19 @@
                 "m_Id": "876a05012baf41ceaf2dd03db7c37e64"
             },
             {
-                "m_Id": "479e9d2665924cd89be752a3e73fa0a0"
-            },
-            {
-                "m_Id": "5270dc35f3014b7190e204ff2185a7de"
+                "m_Id": "00d7e53c0c9c4ef4a67fa1b466bbc793"
             },
             {
                 "m_Id": "69bcc3d45fea4bf4a60fc406f9271dad"
             },
             {
-                "m_Id": "00d7e53c0c9c4ef4a67fa1b466bbc793"
+                "m_Id": "858e3c4b53d4481aa32bb250fa80446c"
             },
             {
-                "m_Id": "858e3c4b53d4481aa32bb250fa80446c"
+                "m_Id": "5270dc35f3014b7190e204ff2185a7de"
+            },
+            {
+                "m_Id": "479e9d2665924cd89be752a3e73fa0a0"
             }
         ]
     },
@@ -146,10 +146,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
+            "x": 13.0,
+            "y": 261.0000305175781,
+            "width": 200.00001525878907,
+            "height": 41.0
         }
     },
     "m_Slots": [
@@ -219,7 +219,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "38f84f9f4ac0405998e49f7d3e3f03f6",
     "m_Id": 0,
-    "m_DisplayName": "Color",
+    "m_DisplayName": "Backlight",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -296,10 +296,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
+            "x": 9.0000581741333,
+            "y": 430.0,
+            "width": 200.00001525878907,
+            "height": 41.0
         }
     },
     "m_Slots": [
@@ -386,10 +386,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
+            "x": 11.0000638961792,
+            "y": 297.0000305175781,
+            "width": 200.00001525878907,
+            "height": 41.0
         }
     },
     "m_Slots": [
@@ -452,10 +452,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
+            "x": 10.00006103515625,
+            "y": 355.0000305175781,
+            "width": 200.00001525878907,
+            "height": 41.0
         }
     },
     "m_Slots": [
@@ -602,7 +602,7 @@
     "m_Guid": {
         "m_GuidSerialized": "7f19d643-4cdf-458b-89da-2448342f095b"
     },
-    "m_Name": "Color",
+    "m_Name": "Backlight",
     "m_DefaultReferenceName": "Color_a62615aad26e4e268b604814b048683b",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
