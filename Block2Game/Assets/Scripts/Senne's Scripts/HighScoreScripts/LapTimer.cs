@@ -17,7 +17,9 @@ public class LapTimer : MonoBehaviour
     public GameObject startLine;
     public GameObject finishLine;
     public GameObject checkPoint;
+    [SerializeField] GameObject nameInputUI;
     [SerializeField] GameHandler gameHandler;
+    
     
     
     private void Start()
@@ -45,6 +47,9 @@ public class LapTimer : MonoBehaviour
         {
             finished = true;
             gameHandler.StopGame();
+            nameInputUI.SetActive(true);
+
+            
         }
         
     }
@@ -65,7 +70,6 @@ public class LapTimer : MonoBehaviour
         string seconds = (rawTime % 60).ToString("f2");
         //need to save this text 
         timeTxt.text = minutes + ":" + seconds;
-        timeString = timeTxt.ToString();
-        
+        timeString = timeTxt.text.ToString();
     }
 }

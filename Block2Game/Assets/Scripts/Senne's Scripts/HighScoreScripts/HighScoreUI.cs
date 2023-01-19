@@ -8,6 +8,7 @@ public class HighScoreUI : MonoBehaviour
     [SerializeField] GameObject panel;
     [SerializeField] GameObject highScoreUIElementPrefab;
     [SerializeField] Transform elementWrapper;
+    
 
     List<GameObject> uiElement = new List<GameObject> ();
 
@@ -39,8 +40,10 @@ public class HighScoreUI : MonoBehaviour
                 //write or overwrite name and times
                 var texts = uiElement[i].GetComponentsInChildren<Text>();
                 texts[0].text = el.playerName;
-                texts[2].text = el.timeString;
+                texts[1].text = el.timeString;
             }
         }
     }
+
+    
 }

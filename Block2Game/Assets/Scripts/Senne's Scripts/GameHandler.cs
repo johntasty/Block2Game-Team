@@ -15,8 +15,12 @@ public class GameHandler : MonoBehaviour
         //Pauses the gameplay
         Time.timeScale = 0f;
         //Adds the score to the list if it is possible 
-        highScoreHandler.AddHighScoreIfPossible(new HighScoreElement(nameInput.text, lapTimer.rawTime, lapTimer.timeString));
+        
         //Pull up ui 
         //update highscore list 
+    }
+    public void SaveHighScore()
+    {
+        highScoreHandler.AddHighScoreIfPossible(new HighScoreElement(nameInput.text, lapTimer.rawTime, lapTimer.timeString));
     }
 }

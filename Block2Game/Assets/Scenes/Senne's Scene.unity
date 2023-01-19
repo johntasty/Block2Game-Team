@@ -1048,6 +1048,7 @@ GameObject:
   - component: {fileID: 282474252}
   - component: {fileID: 282474255}
   - component: {fileID: 282474254}
+  - component: {fileID: 282474256}
   m_Layer: 0
   m_Name: SaveManager
   m_TagString: Untagged
@@ -1111,7 +1112,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lapTimer: {fileID: 6922510371889331816}
   highScoreHandler: {fileID: 282474254}
-  nameInput: {fileID: 0}
+  nameInput: {fileID: 1532146049}
+--- !u!114 &282474256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282474251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a59588c105d654846a6461fd9ca0132a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 202438582}
+  highScoreUIElementPrefab: {fileID: 755721675330175711, guid: 56b6aea49e2782648be24ec759873f3e, type: 3}
+  elementWrapper: {fileID: 1793932668}
 --- !u!1 &314972526
 GameObject:
   m_ObjectHideFlags: 0
@@ -3711,6 +3727,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 282474255}
+        m_TargetAssemblyTypeName: GameHandler, Assembly-CSharp
+        m_MethodName: SaveHighScore
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6467,13 +6495,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1969f3ad407bc44ae84d1ee114f829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeTxt: {fileID: 0}
+  timeTxt: {fileID: 369464511}
   timeString: 
   rawTime: 0
   finished: 0
   startLine: {fileID: 0}
   finishLine: {fileID: 0}
   checkPoint: {fileID: 0}
+  nameInputUI: {fileID: 1121039792}
   gameHandler: {fileID: 282474255}
 --- !u!222 &6966421589009603586
 CanvasRenderer:
