@@ -28,6 +28,7 @@ public class RenderTrack : MonoBehaviour
         lineRenderer.BakeMesh(mesh, true);
         meshCollider.sharedMesh = mesh;
         //meshCollider.convex = true;
+        mesh.RecalculateNormals();
         mesh.RecalculateBounds();
 
 
