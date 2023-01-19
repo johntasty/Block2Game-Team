@@ -22,6 +22,21 @@ public class CarMovement : MonoBehaviour
     
     void Start()
     {
+        StartCoroutine(DelayStart());
+    }
+
+
+    void FixedUpdate()
+    {
+        _HoverSystem.HoverCar(transform, carBody);
+        _SteeringWheel.RotationCar(transform, inputSystem.RotationCar());
+        _Engine.CarEngine(transform,carBody,inputSystem.CarPedalInput());
+        //WheelsRotation();
+        
+    }
+     private IEnumerator DelayStart()
+    {
+        yield return new WaitForSeconds(0.05f);
         _TrackPos = FindObjectOfType<RenderTrack>();
         LineRenderer _TrackFirstPos = _TrackPos.GetComponent<LineRenderer>();
 
@@ -30,7 +45,7 @@ public class CarMovement : MonoBehaviour
 
         transform.position = _CarPosStart + (Vector3.up * 4);
         Vector3 dir = _CarStartRot - transform.position;
-        
+
         Quaternion _RotationStart = Quaternion.LookRotation(dir, Vector3.up);
         transform.rotation = _RotationStart;
 
@@ -45,17 +60,6 @@ public class CarMovement : MonoBehaviour
         inputSystem.Wheel = wheelRot;
         inputSystem.pedalsHolder = pedalsHolderUi;
     }
-
-
-    void FixedUpdate()
-    {
-        _HoverSystem.HoverCar(transform, carBody);
-        _SteeringWheel.RotationCar(transform, inputSystem.RotationCar());
-        _Engine.CarEngine(transform,carBody,inputSystem.CarPedalInput());
-        //WheelsRotation();
-        
-    }
-         
     //private void WheelsRotation()
     //{
     //    foreach(Transform wheel in frontWheels)
