@@ -14,16 +14,17 @@ public class GameManagerBehaviour : MonoBehaviour
     [SerializeField] GameObject _DriverUi;
     [SerializeField] GameObject _SubmitPanel;
 
-    
+    [SerializeField] CarMovement _Player;
     List<float> lapTimesNum = new List<float>();
-   
+
+    RoadSpeed _RoadText;
 
     // Start is called before the first frame update
     void Start()
     {
         _ScoreLogging = new ScoresClass();
         _UiSpawner = GetComponent<CreateUiTable>();
-
+        _RoadText = GetComponent<RoadSpeed>();
         _TimerFunctions = GetComponent<LapTimerManager>();
         _TimerFunctions.StartTimer();
     }
@@ -33,7 +34,10 @@ public class GameManagerBehaviour : MonoBehaviour
     {
         _TimerFunctions.RunTimer();
     }
-
+    private void FixedUpdate()
+    {
+        _RoadText.SetSpeed();
+    }
     public void SubmitActive()
     {
         _TimerFunctions.StopTimer();
@@ -50,6 +54,9 @@ public class GameManagerBehaviour : MonoBehaviour
        
         _LeaderBoard.SetActive(true);
         _SubmitPanel.SetActive(false);
+
+        _Player.enabled = false;
+
         lapTimesNum = new List<float>();
 
         for (int i = 0; i < _ScoreLogging._LapTimesFloats.Count; i++)

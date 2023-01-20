@@ -5,6 +5,11 @@ using UnityEngine;
 public class Engine : MonoBehaviour
 {
     [SerializeField] float _MotorPower;
+    [SerializeField] float _MaxSpeed;
+    public float _maxSpeed
+    {
+        get => _MaxSpeed;
+    }
     [SerializeField] 
     private LayerMask Ground;
     private bool _Grounded = true;
@@ -16,14 +21,14 @@ public class Engine : MonoBehaviour
 
         Vector3 motor = car.position + car.forward;
         Vector3 dir = motor - transform.position;
-        Vector3 targetVelocity = dir.normalized * 60f;
+        Vector3 targetVelocity = dir.normalized * _MaxSpeed;
         Vector3 force = (targetVelocity - carPhysics.velocity);
 
         Vector3 accel = force / Time.deltaTime;
         carPhysics.AddForce(accel * (_MotorPower * gas));
 
-        if (accel.sqrMagnitude > 60f * 60f)
-            accel = accel.normalized * 60f;
+        if (accel.sqrMagnitude > _MaxSpeed * _MaxSpeed)
+            accel = accel.normalized * _MaxSpeed;
 
     }
 }

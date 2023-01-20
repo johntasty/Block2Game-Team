@@ -7,8 +7,12 @@ public class Timer : MonoBehaviour
 {
 
     Animator m_animator;
-    TMP_Text m_text;
-    Canvas canvas;
+    [SerializeField]TMP_Text m_text;
+    [SerializeField]GameObject canvasAnimation;
+
+    GameManagerBehaviour _Manager;
+    [SerializeField]SteeringUiRotation _Inputs;
+
     private int m_current_number;
     private int m_initial_waittime;
 
@@ -22,9 +26,7 @@ public class Timer : MonoBehaviour
 
         // Get all the required components once during start. 
         m_animator = GetComponent<Animator>();
-        m_text = GetComponent<TMP_Text>();
-        canvas = GetComponentInParent<Canvas>();
-
+        _Manager = GetComponent<GameManagerBehaviour>();
         // Disable the animator to not autostart the animation. 
         m_animator.enabled = false;
 
@@ -37,6 +39,7 @@ public class Timer : MonoBehaviour
     // and then counts down from 3 to 0. 
     IEnumerator delayAnimation()
     {
+       
         yield return new WaitForSeconds(m_initial_waittime);
         // Can do other things to, such as changing color
         m_text.color = Color.red;
@@ -44,8 +47,8 @@ public class Timer : MonoBehaviour
         while (m_current_number > 0)
         {
             yield return new WaitForSeconds(1);
-            m_current_number -= 1/2;
-            Debug.Log(m_current_number -= 1);
+            m_current_number -= 1;
+            
             m_text.text = m_current_number.ToString();
         }
 
@@ -53,7 +56,9 @@ public class Timer : MonoBehaviour
         m_animator.enabled = false;
 
         // Optionally destroy the gameobject when no longer needed.
-        canvas.enabled = false;
+        canvasAnimation.SetActive(false);
+        _Manager.enabled = true;
+        _Inputs.enabled = true;
     }
 }
 
