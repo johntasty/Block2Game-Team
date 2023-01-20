@@ -1,18 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Respawn : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField] Transform respawnPoint;
-
+    [SerializeField] GameObject _DeadMenu;
     public void RespawnFunction()
     {
         if(transform.position.y < -5f)
         {
-            transform.position = respawnPoint.position;
-            transform.rotation = Quaternion.identity;
+            _DeadMenu.SetActive(true);
         }
         
     }

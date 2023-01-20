@@ -5,7 +5,7 @@ using UnityEngine;
 public class RenderTrack : MonoBehaviour
 {
     [SerializeField ] TrackSaving _TrackLoad;
-
+    FinishLine _FinishLineSpawn;
     // The LineRenderer component
     private LineRenderer lineRenderer;
     [SerializeField] GameObject _Collider;
@@ -30,7 +30,9 @@ public class RenderTrack : MonoBehaviour
         //meshCollider.convex = true;
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
+        _FinishLineSpawn = GetComponent<FinishLine>();
 
+        _FinishLineSpawn.AddFinishLine(trackRender[trackRender.Length - 1], trackRender[trackRender.Length - 2]);
 
     }
 

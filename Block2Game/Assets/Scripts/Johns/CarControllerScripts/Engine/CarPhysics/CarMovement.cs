@@ -15,6 +15,7 @@ public class CarMovement : MonoBehaviour
 
     [SerializeField] RenderTrack _TrackPos;
 
+    private Respawn _Spawner;
     //[SerializeField] Transform[] frontWheels;
 
     //[SerializeField] float turnPower;
@@ -40,6 +41,7 @@ public class CarMovement : MonoBehaviour
         _Engine = transform.GetComponent<Engine>();
         _SteeringWheel = transform.GetComponent<CarSteering>();
         _HoverSystem = transform.GetComponent<HoverCarController>();
+        _Spawner = GetComponent<Respawn>();
 
         inputSystem = new InputController();
         inputSystem.Wheel = wheelRot;
@@ -49,6 +51,7 @@ public class CarMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        _Spawner.RespawnFunction();
         _HoverSystem.HoverCar(transform, carBody);
         _SteeringWheel.RotationCar(transform, inputSystem.RotationCar());
         _Engine.CarEngine(transform,carBody,inputSystem.CarPedalInput());
