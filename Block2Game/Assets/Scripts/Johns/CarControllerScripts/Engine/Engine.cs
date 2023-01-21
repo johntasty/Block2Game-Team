@@ -13,11 +13,14 @@ public class Engine : MonoBehaviour
     [SerializeField] 
     private LayerMask Ground;
     private bool _Grounded = true;
-    public void CarEngine(Transform car, Rigidbody carPhysics, float gas)
+    public void CarEngine(Transform car, Rigidbody carPhysics, float gas, bool Npc)
     {
         RaycastHit hit;
-        _Grounded = Physics.Raycast(car.position, -transform.up, out hit, 10f, Ground);
-        if (!_Grounded) return;
+        if (!Npc)
+        {
+            _Grounded = Physics.Raycast(car.position, -transform.up, out hit, 20f, Ground);
+            if (!_Grounded) return;
+        }       
 
         Vector3 motor = car.position + car.forward;
         Vector3 dir = motor - transform.position;

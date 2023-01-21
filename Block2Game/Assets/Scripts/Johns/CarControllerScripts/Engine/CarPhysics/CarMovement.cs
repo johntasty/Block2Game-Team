@@ -54,7 +54,7 @@ public class CarMovement : MonoBehaviour
         _Spawner.RespawnFunction();
         _HoverSystem.HoverCar(transform, carBody);
         _SteeringWheel.RotationCar(transform, inputSystem.RotationCar());
-        _Engine.CarEngine(transform,carBody,inputSystem.CarPedalInput());
+        _Engine.CarEngine(transform,carBody,inputSystem.CarPedalInput(),false);
         //WheelsRotation();
         
     }

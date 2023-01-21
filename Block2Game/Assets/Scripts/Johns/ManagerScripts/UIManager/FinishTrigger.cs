@@ -12,7 +12,10 @@ public class FinishTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-
-        manager.SubmitActive();
+        if (other.CompareTag("Player"))
+        {
+            manager.SubmitActive();
+        }
+       
     }
 }
