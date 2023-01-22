@@ -1680,6 +1680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _TrackLoad: {fileID: 276361736}
+  _Manager: {fileID: 1207875185}
   _Collider: {fileID: 1725571023}
 --- !u!120 &716593035
 LineRenderer:
@@ -2176,8 +2177,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 1981602185}
-  m_Follow: {fileID: 1981602185}
+  m_LookAt: {fileID: 1676957444}
+  m_Follow: {fileID: 1676957444}
   m_Lens:
     FieldOfView: 90
     OrthographicSize: 5
@@ -2200,8 +2201,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813756364}
-  m_LocalRotation: {x: 0.17067237, y: 0, z: 0, w: 0.98532784}
-  m_LocalPosition: {x: -0.16126704, y: 18.970001, z: -738}
+  m_LocalRotation: {x: 0.17067231, y: 0, z: 0, w: 0.98532784}
+  m_LocalPosition: {x: -0.16126704, y: 19.71, z: -738}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1576717753}
@@ -3659,8 +3660,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008852558}
-  m_LocalRotation: {x: 0.17067237, y: 0, z: 0, w: 0.98532784}
-  m_LocalPosition: {x: -0.16126704, y: 18.970001, z: -738}
+  m_LocalRotation: {x: 0.17067231, y: 0, z: 0, w: 0.98532784}
+  m_LocalPosition: {x: -0.16126704, y: 19.71, z: -738}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4143,6 +4144,7 @@ GameObject:
   - component: {fileID: 1207875188}
   - component: {fileID: 1207875187}
   - component: {fileID: 1207875190}
+  - component: {fileID: 1207875191}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4196,6 +4198,18 @@ MonoBehaviour:
   _SubmitPanel: {fileID: 1039349185}
   _Player: {fileID: 1981602187}
   _PlayerCar: {fileID: 1981602185}
+  _Facts:
+  - "THIS IS FACT NUMBER 1.\n NOT GOOD..."
+  - 'THIS IS FACT NUMBER 2.
+
+    IT IS OK NOT PAIN...'
+  - "THIS IS FACT NUMBER 3.\nTHIS ONE IS PAIN \nIN MY ASSHOLE..."
+  - 'THIS IS FACT NUMBER 4.
+
+    THIS ONE IS VERY NIICE...'
+  - 'THIS IS FACT NUMBER 4.
+
+    RUN OUT OF IDEAS...'
 --- !u!114 &1207875186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4275,6 +4289,19 @@ MonoBehaviour:
   _SpeedBar: {fileID: 35520382}
   _SpeedText: {fileID: 694245817}
   _PlayerEngine: {fileID: 1981602186}
+--- !u!114 &1207875191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207875182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c243665269512ab4489b05031df50c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _BillBoard: {fileID: 4306032731110277746, guid: c10db48521cde0346993ee3a1353327b, type: 3}
 --- !u!1 &1214132930
 GameObject:
   m_ObjectHideFlags: 0

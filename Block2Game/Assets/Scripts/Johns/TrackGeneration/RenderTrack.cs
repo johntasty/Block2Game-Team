@@ -5,6 +5,8 @@ using UnityEngine;
 public class RenderTrack : MonoBehaviour
 {
     [SerializeField ] TrackSaving _TrackLoad;
+    [SerializeField] GameManagerBehaviour _Manager;
+    SpawnBilboards billboardSpawner;
     FinishLine _FinishLineSpawn;
     // The LineRenderer component
     private LineRenderer lineRenderer;
@@ -31,7 +33,8 @@ public class RenderTrack : MonoBehaviour
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
         _FinishLineSpawn = GetComponent<FinishLine>();
-
+        billboardSpawner = FindObjectOfType<SpawnBilboards>();
+        billboardSpawner.SpawnBoards(lineRenderer, _Manager._facts);
         _FinishLineSpawn.AddFinishLine(trackRender[trackRender.Length - 1], trackRender[trackRender.Length - 2]);
 
     }

@@ -18,6 +18,12 @@ public class GameManagerBehaviour : MonoBehaviour
 
     [SerializeField] CarMovement _Player;
     [SerializeField] Transform _PlayerCar;
+    [TextArea(5, 10)]
+    [SerializeField] List<string> _Facts = new List<string>();
+    public List<string> _facts
+    {
+        get => _Facts;
+    }
     List<float> lapTimesNum = new List<float>();
 
     RoadSpeed _RoadText;
@@ -25,6 +31,7 @@ public class GameManagerBehaviour : MonoBehaviour
 
     GhostPosSaver _GhostLogger;
     GhostController _GhostManager;
+    
     private SteeringUiRotation pedalsHolderUi;
 
     // Start is called before the first frame update
@@ -36,6 +43,7 @@ public class GameManagerBehaviour : MonoBehaviour
         _RoadText = GetComponent<RoadSpeed>();
         _SpeedometerFunc = GetComponent<Speedometer>();
         _TimerFunctions = GetComponent<LapTimerManager>();
+        
         _GhostManager = FindObjectOfType<GhostController>();
         _TimerFunctions.StartTimer();
         _GhostManager.StartGhost();
