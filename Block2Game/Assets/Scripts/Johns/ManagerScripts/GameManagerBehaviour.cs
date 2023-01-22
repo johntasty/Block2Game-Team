@@ -19,6 +19,7 @@ public class GameManagerBehaviour : MonoBehaviour
 
     [SerializeField] CarMovement _Player;
     [SerializeField] Transform _PlayerCar;
+    [SerializeField] Camera _MinimapCam;
     [TextArea(5, 10)]
     [SerializeField] List<string> _Facts = new List<string>();
     public List<string> _facts
@@ -33,7 +34,7 @@ public class GameManagerBehaviour : MonoBehaviour
     GhostPosSaver _GhostLogger;
     GhostController _GhostManager;
 
-    SpawnBilboards billboardSpawner;
+    UpdateMinimap _PlayerPos;
     SpawnFacts _FactSpawner;
 
     private SteeringUiRotation pedalsHolderUi;
@@ -47,7 +48,9 @@ public class GameManagerBehaviour : MonoBehaviour
         _RoadText = GetComponent<RoadSpeed>();
         _SpeedometerFunc = GetComponent<Speedometer>();
         _TimerFunctions = GetComponent<LapTimerManager>();
-        billboardSpawner = GetComponent<SpawnBilboards>();
+        _PlayerPos = GetComponent<UpdateMinimap>();
+
+        _PlayerPos.CalcualteDimensions();
         _FactSpawner = GetComponent<SpawnFacts>();
 
         _GhostManager = FindObjectOfType<GhostController>();
@@ -56,7 +59,9 @@ public class GameManagerBehaviour : MonoBehaviour
         pedalsHolderUi = FindObjectOfType<SteeringUiRotation>();
 
         StartCoroutine( _GhostLogger.PositionLogs(_PlayerCar, pedalsHolderUi));
-        
+        _MinimapCam.gameObject.SetActive(false);
+
+
     }
 
     // Update is called once per frame
@@ -64,10 +69,13 @@ public class GameManagerBehaviour : MonoBehaviour
     {
         _TimerFunctions.RunTimer();
         _SpeedometerFunc.SpeedometerBar();
-     
+        _PlayerPos.UpdateMinimapPos(_PlayerCar);
+
+
     }
     private void FixedUpdate()
     {
+        
         _RoadText.SetSpeed();
         if (_GhostManager.enabled)
         {
