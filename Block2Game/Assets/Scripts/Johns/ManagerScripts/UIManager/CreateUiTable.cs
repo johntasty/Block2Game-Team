@@ -10,7 +10,7 @@ public class CreateUiTable : MonoBehaviour
     public void SpawnUi(string name, string time)
     {
         GameObject spawned = Instantiate(_PrefabName, _ListHolder);
-        spawned.transform.GetChild(0).GetComponent<Text>().text = name;
-        spawned.transform.GetChild(1).GetComponent<Text>().text = time;
+        spawned.transform.GetChild(1).GetComponent<Text>().text = name;
+        spawned.transform.GetChild(2).GetComponent<Text>().text = time;
     }
 }

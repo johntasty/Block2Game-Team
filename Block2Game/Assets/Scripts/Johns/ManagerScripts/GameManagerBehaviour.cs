@@ -13,6 +13,7 @@ public class GameManagerBehaviour : MonoBehaviour
     [SerializeField] TMP_InputField _Email;
 
     [SerializeField] GameObject _LeaderBoard;
+    [SerializeField] GameObject _FactsHolder;
     [SerializeField] GameObject _DriverUi;
     [SerializeField] GameObject _SubmitPanel;
 
@@ -31,7 +32,10 @@ public class GameManagerBehaviour : MonoBehaviour
 
     GhostPosSaver _GhostLogger;
     GhostController _GhostManager;
-    
+
+    SpawnBilboards billboardSpawner;
+    SpawnFacts _FactSpawner;
+
     private SteeringUiRotation pedalsHolderUi;
 
     // Start is called before the first frame update
@@ -43,13 +47,16 @@ public class GameManagerBehaviour : MonoBehaviour
         _RoadText = GetComponent<RoadSpeed>();
         _SpeedometerFunc = GetComponent<Speedometer>();
         _TimerFunctions = GetComponent<LapTimerManager>();
-        
+        billboardSpawner = GetComponent<SpawnBilboards>();
+        _FactSpawner = GetComponent<SpawnFacts>();
+
         _GhostManager = FindObjectOfType<GhostController>();
         _TimerFunctions.StartTimer();
         _GhostManager.StartGhost();
         pedalsHolderUi = FindObjectOfType<SteeringUiRotation>();
 
         StartCoroutine( _GhostLogger.PositionLogs(_PlayerCar, pedalsHolderUi));
+        
     }
 
     // Update is called once per frame
@@ -70,6 +77,7 @@ public class GameManagerBehaviour : MonoBehaviour
     }
     public void SubmitActive()
     {
+        
         _TimerFunctions.StopTimer();
         _GhostLogger._recording = false;
                 
@@ -88,7 +96,8 @@ public class GameManagerBehaviour : MonoBehaviour
 
         _LeaderBoard.SetActive(true);
         _SubmitPanel.SetActive(false);
-        
+        _FactsHolder.SetActive(true);
+        _FactSpawner.SwitchFacts();
 
         lapTimesNum = new List<float>();
 
@@ -128,4 +137,5 @@ public class GameManagerBehaviour : MonoBehaviour
         string timer = minutes + ":" + seconds;
         return timer;
     }
+  
 }

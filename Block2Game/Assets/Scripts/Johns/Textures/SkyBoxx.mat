@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FrontTex:
-        m_Texture: {fileID: 2800000, guid: 017c5c64792b86f44921de8040a8a4e1, type: 3}
+        m_Texture: {fileID: 2800000, guid: e4d8993639f071845bb71cdd5ccaf886, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LeftTex:
@@ -76,7 +76,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RightTex:
-        m_Texture: {fileID: 2800000, guid: e4d8993639f071845bb71cdd5ccaf886, type: 3}
+        m_Texture: {fileID: 2800000, guid: 017c5c64792b86f44921de8040a8a4e1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:

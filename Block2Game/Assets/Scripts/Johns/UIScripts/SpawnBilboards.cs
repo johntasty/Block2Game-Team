@@ -13,7 +13,7 @@ public class SpawnBilboards : MonoBehaviour
          
         lineRenderer.GetPositions(pos);
         int randomPos = pos.Length - 5;
-        for (int i = 5; i < randomPos; i += 4)
+        for (int i = 3; i < randomPos; i += 6)
         {
             string fact = string.Empty;
             int randomFact = Random.Range(0, tempFacts.Count - 1);
@@ -28,9 +28,20 @@ public class SpawnBilboards : MonoBehaviour
             GameObject boardSpawn = Instantiate(_BillBoard);
             boardSpawn.transform.GetChild(1).GetComponent<TMP_Text>().text = fact;            
 
-            boardSpawn.transform.position = pos[i] + (Vector3.up * 25);
+            boardSpawn.transform.position = pos[i] + (Vector3.up * 30);
             boardSpawn.transform.rotation = Quaternion.FromToRotation(boardSpawn.transform.forward, dir);
         }
         
     }
+    public void SpawnBoardsAtPlayer(Transform _Player, List<string> facts)
+    {
+        List<string> tempFacts = facts;        
+
+       
+
+    }
+    //public void BlinkBillOut()
+    //{
+    //    _BillBoardObject.SetActive(false);
+    //}
 }

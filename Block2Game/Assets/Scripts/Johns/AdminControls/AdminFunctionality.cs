@@ -13,6 +13,7 @@ public class AdminFunctionality : MonoBehaviour
     [SerializeField] Button _TrackButton;
     [SerializeField] Button _ExtractData;
     [SerializeField] Button _ResetData;
+    [SerializeField] GameObject _AdminField;
     private void Awake()
     {
         _Password.contentType = TMP_InputField.ContentType.Password;
@@ -58,8 +59,8 @@ public class AdminFunctionality : MonoBehaviour
             if (_UsernameVar == test.Item1 && _Encrypt.ValidatePassword(_PasswordVar, test.Item2, test.Item3))
             {
                 _TrackButton.gameObject.SetActive(true);
-                _ExtractData.gameObject.SetActive(true);
-                _ResetData.gameObject.SetActive(true);
+                
+                _AdminField.gameObject.SetActive(true);
             }
             
         }       

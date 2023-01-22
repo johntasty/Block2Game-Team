@@ -21,7 +21,7 @@ public class GhostController : MonoBehaviour
     {
         PopulateList();
         if (_Replay == null) { enabled = false;  return; }
-        transform.position = _Replay[0]._PlayerPos;
+        transform.position = _Replay[0]._PlayerPos - Vector3.up;
         GhostEngine = GetComponent<Engine>();
         GhostBody = GetComponent<Rigidbody>();
        

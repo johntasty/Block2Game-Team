@@ -17,5 +17,8 @@ public class Speedometer : MonoBehaviour
 
         _SpeedBar.fillAmount = _current + 0.1f;
         _SpeedText.text = ((int)_speed * 3).ToString();
+       
+        _SpeedText.color = Color.Lerp(Color.cyan, Color.red, _current * 2);
+
     }
 }

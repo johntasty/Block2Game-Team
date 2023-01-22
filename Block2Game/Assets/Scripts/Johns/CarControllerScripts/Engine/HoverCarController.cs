@@ -10,7 +10,8 @@ public class HoverCarController : MonoBehaviour
     [SerializeField] private float _lenght;
 
     [SerializeField] private float _dampen;
-  
+
+    [SerializeField] LayerMask _ground;
 
     public float lastHitDis;
     public float forceAmount;
@@ -18,9 +19,8 @@ public class HoverCarController : MonoBehaviour
     public void HoverCar(Transform car, Rigidbody physicsBody)
     {
         RaycastHit hit;
-        if (Physics.Raycast(car.position, -car.up, out hit, _lenght))
-        {
-            Debug.DrawRay(car.position, -car.up * _lenght, Color.red);
+        if (Physics.Raycast(car.position, -car.up, out hit, _lenght, _ground))
+        {            
             forceAmount = HooksLaw(hit.distance);
             physicsBody.AddForceAtPosition(car.up * forceAmount, car.position);
         }
