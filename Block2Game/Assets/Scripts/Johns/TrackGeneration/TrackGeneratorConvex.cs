@@ -106,8 +106,7 @@ public class TrackGeneratorConvex : MonoBehaviour
     public List<Vector3> GenerateConvexHull(List<Vector3> points, float difficulty, float displaced)
     {
         // The list of points on the convex hull
-        List<Vector3> hull = new List<Vector3>();
-      
+        List<Vector3> hull = new List<Vector3>();      
         // Find the leftmost point in the set
         Vector3 leftmost = points[0];
         foreach (Vector3 point in points)
@@ -117,15 +116,13 @@ public class TrackGeneratorConvex : MonoBehaviour
                 leftmost = point;
             }
         }
-
         // Start the hull with the leftmost point
         Vector3 currentPoint = leftmost;
         Vector3 nextPoint;
         do
         {
             // Add the current point to the hull
-            hull.Add(currentPoint);
-            
+            hull.Add(currentPoint);            
             // Find the next point on the hull
             nextPoint = points[0];
             foreach (Vector3 point in points)
@@ -139,25 +136,19 @@ public class TrackGeneratorConvex : MonoBehaviour
                     nextPoint = point;
                 }
             }
-            Vector3 midwayPoint = (currentPoint + nextPoint) / 2;
-           
+            Vector3 midwayPoint = (currentPoint + nextPoint) / 2;           
             // Calculate the angle to rotate the vector based on the difficulty factor
             float angle = difficulty;
             midwayPoint += (midwayPoint - currentPoint).normalized * displaced; 
             // Calculate the new point by rotating the vector by the angle
-            Vector3 newPoint = Quaternion.Euler(0,angle,0) * (midwayPoint - currentPoint) + currentPoint; 
-           
-            hull.Add(newPoint);
-            
+            Vector3 newPoint = Quaternion.Euler(0,angle,0) * (midwayPoint - currentPoint) + currentPoint;            
+            hull.Add(newPoint);            
             // Set the current point to the next point
             currentPoint = nextPoint;
         } while (currentPoint != leftmost);
         hull.Add(hull[0]);
-
         PushPoints(hull, threshold);
-
         List<Vector3> smoothPoints = SmoothPoints(hull, 100);
-
         // Return the convex hull
         return smoothPoints;
     }
@@ -183,9 +174,7 @@ public class TrackGeneratorConvex : MonoBehaviour
     {
         // The list of smooth points
         List<Vector3> smoothPoints = new List<Vector3>();
-
-        // The step size between each point on the Bezier curve
-       
+             
         
         // Iterate through the points
         for (int i = 0; i < points.Count - 1; i++)

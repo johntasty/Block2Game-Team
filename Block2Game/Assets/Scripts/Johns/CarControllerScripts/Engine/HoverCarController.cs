@@ -18,10 +18,13 @@ public class HoverCarController : MonoBehaviour
 
     public void HoverCar(Transform car, Rigidbody physicsBody)
     {
+        // Perform a raycast to check if the car is hovering over the ground
         RaycastHit hit;
         if (Physics.Raycast(car.position, -car.up, out hit, _lenght, _ground))
-        {            
+        {
+            // If the car is hovering over the ground, calculate the force using Hooks Law
             forceAmount = HooksLaw(hit.distance);
+            // Apply the force to the car's physics body
             physicsBody.AddForceAtPosition(car.up * forceAmount, car.position);
         }
         else
@@ -32,11 +35,14 @@ public class HoverCarController : MonoBehaviour
 
     private float HooksLaw(float distance)
     {
+        // Calculate the force using Hooks Law
         float forceAmount = _strenght * (_lenght - distance) + (_dampen * (lastHitDis - distance));
+        // Clamp the force to a minimum value of 0
         forceAmount = Mathf.Max(0f, forceAmount);
+        // Update the last hit distance
         lastHitDis = distance;
 
         return forceAmount;
     }
-   
+
 }

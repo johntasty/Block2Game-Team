@@ -55,38 +55,26 @@ public class Encryption
 
             // Convert the hash bytes to a string
             string hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
-
             return hash;
         }
     }
 
     public string EncryptEmail(string email, byte[] key, byte[] iv)
-    {
-        
+    {        
         byte[] emailBytes = System.Text.Encoding.UTF8.GetBytes(email);
-
        
         Aes aes = Aes.Create();
         aes.Key = key;
         aes.IV = iv;
-
         
         MemoryStream memoryStream = new MemoryStream();
-
         // Create a new crypto stream using the memory stream and the AES object
-        CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(), CryptoStreamMode.Write);
-
-       
-        cryptoStream.Write(emailBytes, 0, emailBytes.Length);
-
-        
+        CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(), CryptoStreamMode.Write);       
+        cryptoStream.Write(emailBytes, 0, emailBytes.Length);        
         cryptoStream.FlushFinalBlock();
         cryptoStream.Close();
-
       
-        byte[] encryptedEmailBytes = memoryStream.ToArray();
-
-        
+        byte[] encryptedEmailBytes = memoryStream.ToArray();        
         return Convert.ToBase64String(encryptedEmailBytes);
     }
 
@@ -94,23 +82,17 @@ public class Encryption
     {
         // Convert the encrypted email from a string to a byte array
         byte[] encryptedEmailBytes = Convert.FromBase64String(encryptedEmail);
-
         // Create a new AES object with the key and iv
         Aes aes = Aes.Create();
         aes.Key = key;
         aes.IV = iv;
-
         // Create a new memory stream
         using (MemoryStream memoryStream = new MemoryStream(encryptedEmailBytes))
-        {
-           
+        {           
             using (CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(), CryptoStreamMode.Read))
-            {
-               
+            {               
                 byte[] emailBytes = new byte[encryptedEmailBytes.Length];
-                int bytesRead = cryptoStream.Read(emailBytes, 0, emailBytes.Length);
-
-                
+                int bytesRead = cryptoStream.Read(emailBytes, 0, emailBytes.Length);                
                 return System.Text.Encoding.UTF8.GetString(emailBytes, 0, bytesRead);
             }
         }

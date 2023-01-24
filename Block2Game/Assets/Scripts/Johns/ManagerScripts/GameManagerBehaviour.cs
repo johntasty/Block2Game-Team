@@ -95,46 +95,46 @@ public class GameManagerBehaviour : MonoBehaviour
     }
     public void TestTimerLog()
     {
-       
+        // Assign the time, name, and email fields from other script variables
         _ScoreLogging._time = _TimerFunctions._TimeString;
         _ScoreLogging._name = _Username.text;
         _ScoreLogging._email = _Email.text;
-
+        // Log the stats to the ScoreLogging script
         _ScoreLogging.LogStats();
-
+        // Enable the leaderboard, disable the submit panel, and show the facts
         _LeaderBoard.SetActive(true);
         _SubmitPanel.SetActive(false);
         _FactsHolder.SetActive(true);
         _FactSpawner.SwitchFacts();
-
+        // Create a new list for lap times in numerical format
         lapTimesNum = new List<float>();
-
+        // Iterate through the lap times and convert them to a string format
         for (int i = 0; i < _ScoreLogging._LapTimesFloats.Count; i++)
         {
             string timerCurrent = ConvertRawTime(_ScoreLogging._LapTimesFloats[i]._LapTime);
             _UiSpawner.SpawnUi(_ScoreLogging._LapTimesFloats[i]._Name, timerCurrent);
             lapTimesNum.Add(_ScoreLogging._LapTimesFloats[i]._LapTime);
         }
-       
+        // If there's only one lap time, save it to the GhostLogger
         if (_ScoreLogging._LapTimesFloats.Count == 1)
         {
-           
             _GhostLogger.SaveLogs();
         }
-       
+        // Get the current player's lap time in numerical format
         float timerCurrentPlayer = float.Parse(_TimerFunctions._TimeString);
-        
-      if(timerCurrentPlayer > _ScoreLogging._LapTimesFloats[0]._LapTime)
+        // Compare the player's lap time with the first lap time on the leaderboard
+        if (timerCurrentPlayer > _ScoreLogging._LapTimesFloats[0]._LapTime)
         {
+            // If the player's lap time is slower than the first lap time, print "Slow" to the console
             Debug.Log("Slow");
-            
         }
-      else
+        else
         {
+            // If the player's lap time is faster than the first lap time, save it to the GhostLogger
             _GhostLogger.SaveLogs();
-          
         }
     }
+
 
     string ConvertRawTime(float time)
     {

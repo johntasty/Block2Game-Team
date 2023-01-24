@@ -49,59 +49,67 @@ public class ScoresClass
 
     private void SortTimes()
     {
+        // Sort the lap times list in ascending order by lap time
         lapTimesFloats.Sort((s1, s2) => s1._LapTime.CompareTo(s2._LapTime));
-
     }
+
     public void LogStats()
     {
+        // Initialize the encryption class
         _Encrypt = new Encryption();
+        // Load the encryption key
         LoadKey();
+        // Define the path for the stats file
         string persistentPath = Application.persistentDataPath + "/Stats.json";
+        // Check if the file exists
         if (File.Exists(persistentPath))
         {
+            // If so, load the existing stats
             LoadStats();
-
         }
-                
+        // Encrypt the email
         var emailEncrypt = _Encrypt.EncryptEmail(email, key, iv);
-
+        // Convert the time string to a float
         float timerCurrent = float.Parse(time);
+        // Create a new Score object with the current name, time, and encrypted email
         Score _pointAddCurrent = new Score { _Name = name, _LapTime = timerCurrent, _HashedEmail = emailEncrypt };
+        // Add the new Score object to the lap times list
         lapTimesFloats.Add(_pointAddCurrent);
-
-        SortTimes();
-
+        // Sort the lap times list
+        SortTimes();        
+        // Create an array to hold the sorted lap times
         Score[] _SaveScores = new Score[lapTimesFloats.Count];
-
+        // Copy the lap times from the list to the array
         for (int i = 0; i < lapTimesFloats.Count; i++)
         {
-            
             Score _pointAdd = new Score { _Name = lapTimesFloats[i]._Name, _LapTime = lapTimesFloats[i]._LapTime, _HashedEmail = lapTimesFloats[i]._HashedEmail };
             _SaveScores[i] = _pointAdd;
-        }        
-
+        }
+        // Convert the array to a JSON string
         string json = JsonHelper.ToJson(_SaveScores, true);
+        // Write the JSON string to the stats file
         File.WriteAllText(persistentPath, json);
-
+        // Reload the stats from the file
         LoadStats();
     }
 
     public void LoadStats()
     {
-        
+        // Define the path for the stats file
         string persistentPath = Application.persistentDataPath + "/Stats.json";
+        // Read the contents of the file into a string
         string jsonString = File.ReadAllText(persistentPath);
-
+        // Convert the JSON string to an array of Score objects
         Score[] _points = JsonHelper.FromJson<Score>(jsonString);
-
+        // Initialize the lap times list
         lapTimesFloats = new List<Score>();
+        // Copy the data from the array to the list
         for (int i = 0; i < _points.Length; i++)
         {
             lapTimesFloats.Add(_points[i]);
-            
         }
-
     }
+
     public static class JsonHelper
     {
         public static T[] FromJson<T>(string json)
