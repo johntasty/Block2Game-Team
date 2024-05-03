@@ -1,0 +1,149 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using System.IO;
+
+public class GameManagerBehaviour : MonoBehaviour
+{
+    LapTimerManager _TimerFunctions;
+    ScoresClass _ScoreLogging;
+    CreateUiTable _UiSpawner;
+    [SerializeField] TMP_InputField _Username;
+    [SerializeField] TMP_InputField _Email;
+
+    [SerializeField] GameObject _LeaderBoard;
+    [SerializeField] GameObject _FactsHolder;
+    [SerializeField] GameObject _DriverUi;
+    [SerializeField] GameObject _SubmitPanel;
+
+    [SerializeField] CarMovement _Player;
+    [SerializeField] Transform _PlayerCar;
+    [SerializeField] Camera _MinimapCam;
+    [TextArea(5, 10)]
+    [SerializeField] List<string> _Facts = new List<string>();
+    public List<string> _facts
+    {
+        get => _Facts;
+    }
+    List<float> lapTimesNum = new List<float>();
+
+    RoadSpeed _RoadText;
+    Speedometer _SpeedometerFunc;
+
+    GhostPosSaver _GhostLogger;
+    GhostController _GhostManager;
+
+    UpdateMinimap _PlayerPos;
+    SpawnFacts _FactSpawner;
+
+    private SteeringUiRotation pedalsHolderUi;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        _ScoreLogging = new ScoresClass();
+        _GhostLogger = new GhostPosSaver();
+        _UiSpawner = GetComponent<CreateUiTable>();
+        _RoadText = GetComponent<RoadSpeed>();
+        _SpeedometerFunc = GetComponent<Speedometer>();
+        _TimerFunctions = GetComponent<LapTimerManager>();
+        _PlayerPos = GetComponent<UpdateMinimap>();
+
+        _PlayerPos.CalcualteDimensions();
+        _FactSpawner = GetComponent<SpawnFacts>();
+
+        _GhostManager = FindObjectOfType<GhostController>();
+        _TimerFunctions.StartTimer();
+        _GhostManager.StartGhost();
+        pedalsHolderUi = FindObjectOfType<SteeringUiRotation>();
+
+        StartCoroutine( _GhostLogger.PositionLogs(_PlayerCar, pedalsHolderUi));
+        _MinimapCam.gameObject.SetActive(false);
+
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        _TimerFunctions.RunTimer();
+        _SpeedometerFunc.SpeedometerBar();
+        _PlayerPos.UpdateMinimapPos(_PlayerCar);
+
+
+    }
+    private void FixedUpdate()
+    {
+        
+        _RoadText.SetSpeed();
+        if (_GhostManager.enabled)
+        {
+            _GhostManager.MoveGhost();
+        }
+       
+    }
+    public void SubmitActive()
+    {
+        
+        _TimerFunctions.StopTimer();
+        _GhostLogger._recording = false;
+                
+        _DriverUi.SetActive(false);
+        _SubmitPanel.SetActive(true);
+        _Player.enabled = false;
+    }
+    public void TestTimerLog()
+    {
+        // Assign the time, name, and email fields from other script variables
+        _ScoreLogging._time = _TimerFunctions._TimeString;
+        _ScoreLogging._name = _Username.text;
+        _ScoreLogging._email = _Email.text;
+        // Log the stats to the ScoreLogging script
+        _ScoreLogging.LogStats();
+        // Enable the leaderboard, disable the submit panel, and show the facts
+        _LeaderBoard.SetActive(true);
+        _SubmitPanel.SetActive(false);
+        _FactsHolder.SetActive(true);
+        _FactSpawner.SwitchFacts();
+        // Create a new list for lap times in numerical format
+        lapTimesNum = new List<float>();
+        // Iterate through the lap times and convert them to a string format
+        for (int i = 0; i < _ScoreLogging._LapTimesFloats.Count; i++)
+        {
+            string timerCurrent = ConvertRawTime(_ScoreLogging._LapTimesFloats[i]._LapTime);
+            _UiSpawner.SpawnUi(_ScoreLogging._LapTimesFloats[i]._Name, timerCurrent);
+            lapTimesNum.Add(_ScoreLogging._LapTimesFloats[i]._LapTime);
+        }
+        // If there's only one lap time, save it to the GhostLogger
+        if (_ScoreLogging._LapTimesFloats.Count == 1)
+        {
+            _GhostLogger.SaveLogs();
+        }
+        // Get the current player's lap time in numerical format
+        float timerCurrentPlayer = float.Parse(_TimerFunctions._TimeString);
+        // Compare the player's lap time with the first lap time on the leaderboard
+        if (timerCurrentPlayer > _ScoreLogging._LapTimesFloats[0]._LapTime)
+        {
+            // If the player's lap time is slower than the first lap time, print "Slow" to the console
+            Debug.Log("Slow");
+        }
+        else
+        {
+            // If the player's lap time is faster than the first lap time, save it to the GhostLogger
+            _GhostLogger.SaveLogs();
+        }
+    }
+
+
+    string ConvertRawTime(float time)
+    {
+        string minutes = ((int)time / 60).ToString();
+        string seconds = (time % 60).ToString("f2");
+        //need to save this text 
+
+        string timer = minutes + ":" + seconds;
+        return timer;
+    }
+  
+}

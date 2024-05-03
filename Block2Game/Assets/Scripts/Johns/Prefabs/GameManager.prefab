@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2984384487587864784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2984384487587864785}
+  - component: {fileID: 2984384487587864783}
+  - component: {fileID: 2984384487587864779}
+  - component: {fileID: 2984384487587864782}
+  - component: {fileID: 2984384487587864780}
+  - component: {fileID: 2984384487587864778}
+  - component: {fileID: 2984384487587864781}
+  - component: {fileID: 2984384487587864776}
+  - component: {fileID: 2984384487587864777}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2984384487587864785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984384487587864784}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2984384487587864783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984384487587864784}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69da70ba782be0a48a2f34700a071ff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Username: {fileID: 0}
+  _Email: {fileID: 0}
+  _LeaderBoard: {fileID: 0}
+  _DriverUi: {fileID: 0}
+  _SubmitPanel: {fileID: 0}
+  _Player: {fileID: 0}
+  _PlayerCar: {fileID: 0}
+  _Facts:
+  - "Digital Society Hub has a range \nof facilities  available \nfor students and
+    partners!"
+  - 'THIS IS FACT NUMBER 2.
+
+    IT IS OK NOT PAIN...'
+  - "THIS IS FACT NUMBER 3.\nTHIS ONE IS PAIN \nIN MY ASSHOLE..."
+  - 'THIS IS FACT NUMBER 4.
+
+    THIS ONE IS VERY NIICE...'
+  - 'THIS IS FACT NUMBER 4.
+
+    RUN OUT OF IDEAS...'
+--- !u!114 &2984384487587864779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984384487587864784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b088807c01af4540a77c56c55ac87a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _RoadMat: {fileID: 2100000, guid: 726c16b3c9e4b114795c59f587f16b02, type: 2}
+  _PlayerBody: {fileID: 0}
+  _PlayerEngine: {fileID: 0}
+--- !u!114 &2984384487587864782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984384487587864784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf58b26221360e44ea8f23b74e9aa685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeTxt: {fileID: 0}
+--- !u!114 &2984384487587864780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984384487587864784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 916aac6f5a3bfaa4abf62fe46306fe3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _PrefabName: {fileID: 4181061047978972388, guid: 39ee2a7430e59b943b4a0c143d36e402, type: 3}
+  _ListHolder: {fileID: 0}
+--- !u!114 &2984384487587864778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984384487587864784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850fd77fa69dc244b91c8ee80bead616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_text: {fileID: 0}
+  canvasAnimation: {fileID: 0}
+  _Inputs: {fileID: 0}
+--- !u!95 &2984384487587864781
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984384487587864784}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c5dc668e7ec3a3f45953474705af6b0b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2984384487587864776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984384487587864784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a54835313297274c9db18b3347db1d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CarPlayer: {fileID: 0}
+  _SpeedBar: {fileID: 0}
+  _SpeedText: {fileID: 0}
+  _PlayerEngine: {fileID: 0}
+--- !u!114 &2984384487587864777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984384487587864784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c243665269512ab4489b05031df50c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _BillBoard: {fileID: 4306032731110277746, guid: c10db48521cde0346993ee3a1353327b, type: 3}
